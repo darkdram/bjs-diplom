@@ -26,7 +26,14 @@ ApiConnector.getStocks(response => {
 // Операции с деньгами
 function addMoney2Wallet(object, data) {
     ApiConnector.addMoney(data, response => {
-        response['success'] ? ProfileWidget.showProfile(response['data']) : object.setMessage(response['success'], response['error']);
+        let _message = response['success'] ? 'Средства успешно зачислены' : response['error'];
+        if (response['success']) {
+            ProfileWidget.showProfile(response['data'])
+        }
+
+        console.log(_message);
+
+        object.setMessage(response['success'], _message);
     });
 };
 
@@ -40,7 +47,12 @@ _moneyManager.addMoneyCallback = function (data) {
 // конвертирование валюты
 function moneyConverting(object, data) {
     ApiConnector.convertMoney(data, response => {
-        response['success'] ? ProfileWidget.showProfile(response['data']) : object.setMessage(response['success'], response['error']);
+        let _message = response['success'] ? 'Средства успешно сконвертированы' : response['error'];
+        if (response['success']) {
+            ProfileWidget.showProfile(response['data'])
+        }
+
+        object.setMessage(response['success'], _message);
     });
 };
 _moneyManager.conversionMoneyCallback = function (data) {
@@ -49,7 +61,12 @@ _moneyManager.conversionMoneyCallback = function (data) {
 // перевод валюты
 function transferMoney2Favorites(object, data) {
     ApiConnector.transferMoney(data, response => {
-        response['success'] ? ProfileWidget.showProfile(response['data']) : object.setMessage(response['success'], response['error']);
+        let _message = response['success'] ? 'Средства успешно переведены' : response['error'];
+        if (response['success']) {
+            ProfileWidget.showProfile(response['data']);
+        }
+
+        object.setMessage(response['success'], _message)
     });
 };
 
